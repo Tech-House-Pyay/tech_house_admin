@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partial/head.ejs %>
+  </head>
+  <body>
+    <div class="page login-page">
+      <div class="container d-flex align-items-center">
+        <div class="form-holder has-shadow">
+          <div class="row">
+            <!-- Logo & Information Panel-->
+            <div class="col-lg-6">
+              <div class="info d-flex align-items-center">
+                <div class="content">
+                  <div class="logo">
+                    <h1>Sign In</h1>
+                  </div>
+                  <p>Tech House Studio Admin Login Page</p>
+                </div>
+              </div>
+            </div>
+            <!-- Form Panel    -->
+            <div class="col-lg-6 bg-white">
+              <div class="form d-flex align-items-center">
+                <div class="content">
+                  <form method="post" class="form-validate" action='/signin'>
+                    <div class="form-group">
+                      <input id="login-username" type="text" name="loginUsername" required data-msg="Please enter username" class="input-material">
+                      <label for="login-username" class="label-material">User Name</label>
+                    </div>
+                    <div class="form-group">
+                      <input id="login-password" type="password" name="loginPassword" required data-msg="Please enter your password" class="input-material">
+                      <label for="login-password" class="label-material">Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                    <!-- This should be submit button but I replaced it with <a> for demo purposes-->
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="copyrights text-center">
+        <p>Design by <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>
+          <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
+        </p>
+      </div>
+    </div>
+    <!-- JavaScript files-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+    <script src="/vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="/vendor/chart.js/Chart.min.js"></script>
+    <script src="/vendor/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Main File-->
+    <script src="/js/front.js"></script>
+  </body>
+</html>
