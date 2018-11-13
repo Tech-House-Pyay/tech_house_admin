@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <% include ../partial/head.ejs %>
+  <link href="/css/cropper.css" rel="stylesheet">
+  <style media="screen">
+    .img-label img{
+        width: 25rem;
+      }
+      .img-label{
+        cursor: pointer;
+      }
+      .img-container img{
+        max-width: 100%;
+      }
+    </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- Main Navbar-->
+    <% include ../partial/header.ejs %>
+    <div class="page-content d-flex align-items-stretch">
+      <!-- Side Navbar -->
+      <% include ../partial/sidebar.ejs %>
+      <div class="content-inner">
+        <!-- Page Header-->
+        <header class="page-header">
+          <div class="container-fluid">
+            <h2 class="no-margin-bottom">Teacher</h2>
+          </div>
+        </header>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-holder container-fluid">
+          <ul class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <li class="breadcrumb-item active">Teacher</li>
+          </ul>
+        </div>
+        <!-- Forms Section-->
+        <section class="forms">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="card">
+                  <div class="card-close">
+                    <div class="dropdown">
+                      <button type="button" id="closeCard5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                      <div aria-labelledby="closeCard5" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+                    </div>
+                  </div>
+                  <div class="card-header d-flex align-items-center">
+                    <h3 class="h3">Add Trainer</h3>
+                  </div>
+                  <div class="card-body">
+                    <form class="form-horizontal form-validate" method="post" name="frm" id="frm" enctype="multipart/form-data">
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Trainer Name</label>
+                        <div class="col-sm-9">
+                          <input type="text" required name="tName" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <label class="col-sm-3 form-control-label">Email</label>
+                        <div class="col-sm-9">
+                          <input type="email" required name="email" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <label for="fileInput" class="col-sm-3 form-control-label">Profile</label>
+                        <div class="col-sm-9">
+                          <label class="img-label" data-toggle="tooltip" title="Select photo">
+                            <img class="rounded" id="photo" src="/images/upload.png" alt="Image">
+                            <input type="file" required class="sr-only" id="uploadImg" name="uploadImg" accept="images/*">
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group row has-success">
+                        <label class="col-sm-3 form-control-label">Phone</label>
+                        <div class="col-sm-9">
+                          <input type="number" required name="phone" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group row has-success">
+                        <label class="col-sm-3 form-control-label">Facebook Url</label>
+                        <div class="col-sm-9">
+                          <input type="url" required name="facebook" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group row has-success">
+                        <label class="col-sm-3 form-control-label">Jobs</label>
+                        <div class="col-sm-9">
+                          <input type="text" required name="job" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group row has-success">
+                        <label class="col-sm-3 form-control-label">Init Password</label>
+                        <div class="col-sm-9">
+                          <input type="password" required name="password" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-sm-4 offset-sm-3">
+                          <button type="button" class="btn btn-secondary">Cancel</button>
+                          <button type="button" id="save" class="btn btn-primary">Save</button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <% include ../partial/footer.ejs %>
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="largeModalLabel">Modal title</h4>
+              </div>
+              <div class="modal-body">
+                <div class="img-container">
+                  <img src="/images/upload.png" id="sourceImg" alt="">
+                </div>
+
+              </div>
+              <div class="modal-footer">
+                <button id="crop" type="button" class="btn btn-link waves-effect">Crop</button>
+                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Page Footer-->
+
+</body>
+<script src="/js/cropper.js" charset="utf-8"></script>
+<script type="text/javascript">
+// $(function () {
+//   $.validator.addMethod("password", function(value) {
+//           return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+//               && /[a-z]/.test(value) // has a lowercase letter
+//               && /[A-Z]/.test(value) // has a uppercase letter
+//               && /\d/.test(value) // has a digit
+//        });
+//
+//     $('#frm').validate({
+//         rules: {
+//             'tname': {
+//                 required: true
+//             },
+//             'email': {
+//                 required: true
+//             },
+//             'phone': {
+//                 required: true
+//             },
+//             'job': {
+//                 required: true
+//             },
+//             'photo': {
+//                 required: true
+//             },
+//             'facebook': {
+//                 required: true
+//             },
+//             'password':{
+//               pwcheck: true
+//             }
+//         },
+//         messages: {
+//             tname:"Please enter trainer name",
+//             email:"Please enter email address",
+//             phone: "Please enter phone number",
+//             photo: "Please choice profile picture",
+//             job: "Please enter tranier job",
+//             facebook: "Please enter facebook profile address",
+//             password: {
+//               pwcheck:"Please input at least 1 Upper,  1 lower, 1 digit..."
+//             }
+//         },
+//         highlight: function (input) {
+//             console.log(input);
+//             $(input).parents('.form-line').addClass('error');
+//         },
+//         unhighlight: function (input) {
+//             $(input).parents('.form-line').removeClass('error');
+//         },
+//         errorPlacement: function (error, element) {
+//             $(element).parents('.input-group').append(error);
+//             $(element).parents('.form-group').append(error);
+//         }
+//     });
+// });
+  var $modal = $('#modal');
+  var uploadImg = document.getElementById('uploadImg'); // upload file
+  uploadImg.addEventListener('change', function(e) {
+    var files = e.target.files;
+    var done = function(url) {
+      uploadImg.value = '';
+      $('#sourceImg').attr('src', url);
+      $modal.modal('show');
+    };
+    var reader;
+    var file;
+    var url;
+    if (files && files.length > 0) {
+      file = files[0];
+      if (URL) {
+        done(URL.createObjectURL(file));
+      } else if (FileReader) {
+        reader = new FileReader();
+        reader.onload = function(e) {
+          done(reader.result);
+        };
+        reader.readAsDataURL(file);
+      }
+    }
+  });
+  var cropper;
+  var canvas;
+  var sourceImg = document.getElementById('sourceImg');
+  $modal.on('shown.bs.modal', function() {
+    cropper = new Cropper(sourceImg, {
+      aspectRatio: 1 / 1,
+      preview: '.img-preview',
+      viewMode: 1,
+    });
+  }).on('hidden.bs.modal', function() {
+    cropper.destroy();
+    cropper = null;
+  });
+
+  $('#crop').click(function() {
+    $modal.modal('hide');
+    if (cropper) {
+      canvas = cropper.getCroppedCanvas({
+        width: 150,
+        height: 150,
+      });
+      $('#photo').attr('src', canvas.toDataURL()); // change cropped image
+    }
+  });
+  $('#save').click(function() {
+    $('#frm').valid();
+    canvas.toBlob(function(blob) {
+      var formData = new FormData(document.getElementById('frm'));
+      formData.append('photo', blob);
+      console.log(formData);
+      $.ajax('/teacher/add', {
+        method: 'POST',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(rtn) {
+          location.href = '/'
+        },
+        error: function(err) {
+          console.log(err);
+        },
+        complete: function() {
+          console.log('complate');
+        },
+      });
+    });
+  });
+</script>
+
+</html>
