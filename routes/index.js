@@ -3,11 +3,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // if(req.session.user){
+  if(req.session.user){
     res.render('index', { title: 'Express' });
-  // }else {
-  //   res.render('common/signin')
-  // }
+  }else {
+    res.render('common/signin')
+  }
 
 });
 router.get('/signin', function(req, res, next) {
