@@ -24,6 +24,10 @@ var TeacherSchema = new Schema({
     type: String,
     required:true,
   },
+  desc:{
+    type: String,
+    required:true,
+  },
   job:{
     type: String,
     required:true,

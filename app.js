@@ -4,7 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
-var session = require('express-session')
+var session = require('express-session');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/teacher');
@@ -24,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/js', express.static(__dirname + '/node_modules/cropperjs/dist'));
 app.use('/css', express.static(__dirname + '/node_modules/cropper/dist'));
 
-mongoose.connect('mongodb://127.0.0.1/techhousedb'); // studydb is anyname can insert
+mongoose.connect('mongodb://yethuaung:zikimi95@ds163013.mlab.com:63013/techhousedb'); // studydb is anyname can insert
 var db = mongoose.connection;
 db.on('error',console.error.bind(console,'MongoDB connection error:'));
 

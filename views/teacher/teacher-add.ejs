@@ -96,7 +96,12 @@
                           <input type="text" required name="job" class="form-control">
                         </div>
                       </div>
-
+                      <div class="form-group row ">
+                        <label class="col-sm-3 form-control-label">Description</label>
+                        <div class="col-sm-9">
+                          <textarea name="desc" rows="4" cols="160" required class="form-control"></textarea>
+                        </div>
+                      </div>
                       <div class="form-group row has-success">
                         <label class="col-sm-3 form-control-label">Init Password</label>
                         <div class="col-sm-9">
@@ -241,8 +246,8 @@
     $modal.modal('hide');
     if (cropper) {
       canvas = cropper.getCroppedCanvas({
-        width: 150,
-        height: 150,
+        width: 260,
+        height: 200,
       });
       $('#photo').attr('src', canvas.toDataURL()); // change cropped image
     }

@@ -37,6 +37,15 @@ var CourseSchema = new Schema({
     type: String,
     required: true,
   },
+  status:{
+    type: String,
+    default: '00', // 00 is Available,01 is Not Available
+    required:true,
+  },
+  desc:{
+    type: String,
+    required: true,
+  },
   coutline:[{
       course:{
         type: String,
