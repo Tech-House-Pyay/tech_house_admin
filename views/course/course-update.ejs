@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../partial/head.ejs %>
+    <link  href="/css/cropper.css" rel="stylesheet">
+    <style media="screen">
+      .img-label img{
+        width: 25rem;
+      }
+      .img-label{
+        cursor: pointer;
+      }
+      .img-container img{
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- Main Navbar-->
+      <% include ../partial/header.ejs %>
+      <div class="page-content d-flex align-items-stretch">
+        <!-- Side Navbar -->
+        <% include ../partial/sidebar.ejs %>
+        <div class="content-inner">
+          <!-- Page Header-->
+          <header class="page-header">
+            <div class="container-fluid">
+              <h2 class="no-margin-bottom">Course</h2>
+            </div>
+          </header>
+          <!-- Breadcrumb-->
+          <div class="breadcrumb-holder container-fluid">
+            <ul class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Course</li>
+            </ul>
+          </div>
+          <!-- Forms Section-->
+          <section class="forms">
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-close">
+                      <div class="dropdown">
+                        <button type="button" id="closeCard5" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-ellipsis-v"></i></button>
+                        <div aria-labelledby="closeCard5" class="dropdown-menu dropdown-menu-right has-shadow"><a href="#" class="dropdown-item remove"> <i class="fa fa-times"></i>Close</a><a href="#" class="dropdown-item edit"> <i class="fa fa-gear"></i>Edit</a></div>
+                      </div>
+                    </div>
+                    <div class="card-header d-flex align-items-center">
+                      <h3 class="h3">Add course</h3>
+                    </div>
+                    <div class="card-body">
+                      <form class="form-horizontal form-validate" method="post" name="frm" id="frm" enctype="multipart/form-data">
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">Course Name</label>
+                          <div class="col-sm-9">
+                            <input type="text" name="cName" required class="form-control" value="<%= course.name %>">
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">Teacher Name</label>
+                          <div class="col-sm-9">
+                            <select name="tName" required class="form-control mb-3">
+                              <% for(var i = 0; i< teacher.length; i++){%>
+                                <option value="<%=teacher[i]._id%>"><%=teacher[i].name%></option>
+                              <%}%>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div class="form-group row">
+                          <label for="fileInput" class="col-sm-3 form-control-label">Course Image</label>
+                          <div class="col-sm-9">
+                            <label class="img-label" data-toggle="tooltip" title="Select photo">
+                                <img class="rounded" id="photo" src="image/<%= course.imgUrl %>" alt="Image">
+                                <input type="file" required class="sr-only" id="uploadImg" name="uploadImg" accept="images/*">
+                            </label>
+                          </div>
+                        </div>
+                        <div class="form-group row ">
+                          <label class="col-sm-3 form-control-label">Fee</label>
+                          <div class="col-sm-9">
+                            <input type="number" required name="fee" value="<%= course.fee %>" class="form-control">
+                          </div>
+                        </div>
+                        <div class="form-group row ">
+                          <label class="col-sm-3 form-control-label">Course Duration(Week)</label>
+                          <div class="col-sm-9">
+                            <input type="number" required name="week" class="form-control" value="<%= course.week %>">
+                          </div>
+                        </div>
+
+                        <div class="form-group row ">
+                          <label class="col-sm-3 form-control-label">Class Days</label>
+                          <div class="col-sm-9">
+                            <select multiple="7" required name="days" class="form-control mb-3">
+                              <option value="Sunday">Sunday</option>
+                              <option value="Monday">Monday</option>
+                              <option value="Tuesday">Tuesday</option>
+                              <option value="Wednesday">Wednesday</option>
+                              <option value="Thursday">Thursday</option>
+                              <option value="Friday">Friday</option>
+                              <option value="Saturday">Saturday</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <label class="col-sm-3 form-control-label">Class Time</label>
+                          <div class="col-sm-4">
+                            <input type="time" required name="start" value="<%= course.start %>" class="form-control">
+                          </div>
+                          <div class="col-sm-1">
+                            <span class="form-control text-center">To</span>
+                          </div>
+                          <div class="col-sm-4">
+                            <input type="time" name="end" value="<%= course.end %>" required class="form-control">
+                          </div>
+                        </div>
+                        <div class="form-group row ">
+                          <label class="col-sm-3 form-control-label">Seats</label>
+                          <div class="col-sm-9">
+                            <input type="number" required name="seats" class="form-control" value="<%= course.seats %>">
+                          </div>
+                        </div>
+                        <div class="form-group row ">
+                          <label class="col-sm-3 form-control-label">Description</label>
+                          <div class="col-sm-9">
+                            <textarea name="desc" rows="4" cols="160" required class="form-control"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group row ">
+                          <label class="col-sm-3 form-control-label">Course Outline</label>
+                          <div class="col-sm-9">
+                            <div class="well clearfix">
+                                <div id="czContainer">
+                                    <div id="first">
+                                        <div class="recordset">
+                                            <div class="fieldRow clearfix row">
+                                                <div class="col-md-5">
+                                                    <div id="div_id_stock_1_service" class="form-group">
+                                                        <label for="id_stock_1_product" class="control-label  requiredField">
+                                                            Course<span class="asteriskField">*</span>
+                                                        </label><div class="controls ">
+                                                                    <input type="text" name="course_1_name" id="id_stock_1_product" class="textinput form-control" />
+                                                        </div>
+                                                    </div>
+                                                </div><div class="col-md-7">
+                                                    <div id="div_id_stock_1_unit" class="form-group">
+                                                        <label for="id_stock_1_unit" class="control-label  requiredField">
+                                                            Detail<span class="asteriskField">*</span>
+                                                        </label><div class="controls "> <textarea name="detail_1_name" rows="4" cols="160" class="form-control"></textarea> </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-sm-4 offset-sm-3">
+                            <button type="button" class="btn btn-secondary">Cancel</button>
+                            <button type="button" id="save" class="btn btn-primary">Save</button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <% include ../partial/footer.ejs %>
+          <div class="modal fade" id="modal" tabindex="-1" role="dialog">
+              <div class="modal-dialog modal-lg" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title" id="largeModalLabel">Modal title</h4>
+                      </div>
+                      <div class="modal-body">
+                        <div class="img-container">
+                          <img src="/images/upload.png" id="sourceImg" alt="">
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                          <button id="crop" type="button" class="btn btn-link waves-effect">Crop</button>
+                          <button type="button" class="btn btn-link waves-effect" data-dismiss="modal">CLOSE</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <!-- Page Footer-->
+
+  </body>
+  <script src="/javascripts/jquery.czMore-1.5.3.2.js" charset="utf-8"></script>
+  <script src="/js/cropper.js" charset="utf-8"></script>
+  <script type="text/javascript">
+      //One-to-many relationship plugin by Yasir O. Atabani. Copyrights Reserved.
+      $("#czContainer").czMore();
+      var $modal = $('#modal');
+           var uploadImg = document.getElementById('uploadImg'); // upload file
+           uploadImg.addEventListener('change', function (e) {
+               var files = e.target.files;
+               var done = function (url) {
+                 uploadImg.value = '';
+                 $('#sourceImg').attr('src', url);
+                 $modal.modal('show');
+               };
+               var reader;
+               var file;
+               var url;
+               if (files && files.length > 0) {
+                 file = files[0];
+                 if (URL) {
+                   done(URL.createObjectURL(file));
+                 } else if (FileReader) {
+                   reader = new FileReader();
+                   reader.onload = function (e) {
+                     done(reader.result);
+                   };
+                   reader.readAsDataURL(file);
+                 }
+               }
+           });
+           var cropper;
+           var canvas;
+           var sourceImg = document.getElementById('sourceImg');
+           $modal.on('shown.bs.modal', function () {
+             cropper = new Cropper(sourceImg, {
+                 aspectRatio: 16 / 9,
+                 preview: '.img-preview',
+                 viewMode: 1,
+             });
+           }).on('hidden.bs.modal', function () {
+             cropper.destroy();
+             cropper = null;
+           });
+
+           $('#crop').click( function () {
+             $modal.modal('hide');
+             if (cropper) {
+               canvas = cropper.getCroppedCanvas({
+                 width: 750,
+                 height: 350,
+               });
+               $('#photo').attr('src', canvas.toDataURL() ); // change cropped image
+             }
+           });
+           $('#save').click(function(){
+            $('#frm').valid();
+               canvas.toBlob(function (blob) {
+                   var formData = new FormData(document.getElementById('frm'));
+                   formData.append('photo', blob);
+                   console.log(formData);
+                   $.ajax('/course/add', {
+                     method: 'POST',
+                     data: formData,
+                     processData: false,
+                     contentType: false,
+                     success: function (rtn) {
+                         location.href = '/'
+                     },
+                     error: function (err) {
+                         console.log(err);
+                     },
+                     complete: function () {
+                         console.log('complate');
+                     },
+                   });
+               });
+           });
+  </script>
+</html>

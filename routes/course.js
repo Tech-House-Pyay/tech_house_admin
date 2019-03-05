@@ -131,4 +131,31 @@ router.get('/list',(req,res)=>{
 }
 });
 });
+
+router.get('/update/:id',(req,res)=>{
+  gfs.files.find().toArray((err, files) => {
+    // Check if files
+    if (!files || files.length === 0) {
+      res.render('index', { files: false });
+    } else {
+      files.map(file => {
+        if (
+          file.contentType === 'image/jpeg' ||
+          file.contentType === 'image/png'
+        ) {
+          file.isImage = true;
+        } else {
+          file.isImage = false;
+        }
+      });
+      Course.findById(req.params.id,(err,rtn)=>{
+        if(err) throw err;
+        Teacher.find({},(err2,rtn2)=>{
+          if(err2) throw err2;
+          res.render('course/course-update',{course:rtn,files:files, teacher: rtn2})
+        });
+  });
+}
+});
+})
 module.exports = router;
