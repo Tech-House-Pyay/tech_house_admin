@@ -157,5 +157,27 @@ router.get('/update/:id',(req,res)=>{
   });
 }
 });
-})
+});
+router.post('/update',(req,res)=>{
+  var update = {
+    name: req.body.name,
+    teacher_id: req.body.teacher_id,
+    imgUrl: req.body.imgUrl,
+    fee: req.body.fee,
+    week: req.body.week,
+    days: req.body.days,
+    start: req.body.start,
+    seats: req.body.seats,
+    end: req.body.end,
+    status: req.body.status,
+    desc: req.body.desc,
+  }
+  Course.findByIdAndUpdate(req.body.id,{
+    $set: update
+  },(err,rtn)=>{
+    if(err) throw err;
+    console.log(rtn._id, req.body.id);
+    res.json({ status: true, msg: 'success'});
+  });
+});
 module.exports = router;

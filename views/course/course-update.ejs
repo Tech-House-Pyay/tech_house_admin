@@ -53,6 +53,7 @@
                     </div>
                     <div class="card-body">
                       <form class="form-horizontal form-validate" method="post" name="frm" id="frm" enctype="multipart/form-data">
+                        <input type="hidden" name="id" value="<%=course._id%>">
                         <div class="form-group row">
                           <label class="col-sm-3 form-control-label">Course Name</label>
                           <div class="col-sm-9">
@@ -74,7 +75,7 @@
                           <label for="fileInput" class="col-sm-3 form-control-label">Course Image</label>
                           <div class="col-sm-9">
                             <label class="img-label" data-toggle="tooltip" title="Select photo">
-                                <img class="rounded" id="photo" src="image/<%= course.imgUrl %>" alt="Image">
+                                <img class="rounded" id="photo" src="/images/upload.png" alt="Image">
                                 <input type="file" required class="sr-only" id="uploadImg" name="uploadImg" accept="images/*">
                             </label>
                           </div>
@@ -106,6 +107,15 @@
                             </select>
                           </div>
                         </div>
+                        <div class="form-group row ">
+                          <label class="col-sm-3 form-control-label">Status</label>
+                          <div class="col-sm-9">
+                            <select required name="status" class="form-control mb-3">
+                              <option value="00">Available</option>
+                              <option value="01">Not Available</option>
+                            </select>
+                          </div>
+                        </div>
                         <div class="form-group row">
                           <label class="col-sm-3 form-control-label">Class Time</label>
                           <div class="col-sm-4">
@@ -130,36 +140,7 @@
                             <textarea name="desc" rows="4" cols="160" required class="form-control"></textarea>
                           </div>
                         </div>
-                        <div class="form-group row ">
-                          <label class="col-sm-3 form-control-label">Course Outline</label>
-                          <div class="col-sm-9">
-                            <div class="well clearfix">
-                                <div id="czContainer">
-                                    <div id="first">
-                                        <div class="recordset">
-                                            <div class="fieldRow clearfix row">
-                                                <div class="col-md-5">
-                                                    <div id="div_id_stock_1_service" class="form-group">
-                                                        <label for="id_stock_1_product" class="control-label  requiredField">
-                                                            Course<span class="asteriskField">*</span>
-                                                        </label><div class="controls ">
-                                                                    <input type="text" name="course_1_name" id="id_stock_1_product" class="textinput form-control" />
-                                                        </div>
-                                                    </div>
-                                                </div><div class="col-md-7">
-                                                    <div id="div_id_stock_1_unit" class="form-group">
-                                                        <label for="id_stock_1_unit" class="control-label  requiredField">
-                                                            Detail<span class="asteriskField">*</span>
-                                                        </label><div class="controls "> <textarea name="detail_1_name" rows="4" cols="160" class="form-control"></textarea> </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                          </div>
-                        </div>
+
                         <div class="form-group row">
                           <div class="col-sm-4 offset-sm-3">
                             <button type="button" class="btn btn-secondary">Cancel</button>
@@ -256,13 +237,13 @@
                    var formData = new FormData(document.getElementById('frm'));
                    formData.append('photo', blob);
                    console.log(formData);
-                   $.ajax('/course/add', {
+                   $.ajax('/course/update', {
                      method: 'POST',
                      data: formData,
                      processData: false,
                      contentType: false,
                      success: function (rtn) {
-                         location.href = '/'
+                         location.href = '/course/list'
                      },
                      error: function (err) {
                          console.log(err);
