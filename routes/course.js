@@ -182,4 +182,11 @@ router.post('/update',upload.single('photo'),(req,res)=>{
     res.json({ status: true, msg: 'success'});
   });
 });
+
+router.get('/delete/:id',(req,res)=>{
+  Course.findByIdAndRemove(req.params.id,(err,rtn)=>{
+    if(err) throw err;
+    res.redirect('/course/list');
+  })
+})
 module.exports = router;
