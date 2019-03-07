@@ -158,11 +158,10 @@ router.get('/update/:id',(req,res)=>{
 }
 });
 });
-router.post('/update',(req,res)=>{
+router.post('/update',upload.single('photo'),(req,res)=>{
   var update = {
     name: req.body.name,
     teacher_id: req.body.teacher_id,
-    imgUrl: req.body.imgUrl,
     fee: req.body.fee,
     week: req.body.week,
     days: req.body.days,
@@ -172,6 +171,7 @@ router.post('/update',(req,res)=>{
     status: req.body.status,
     desc: req.body.desc,
   }
+  if(req.file) update.imgUrl= req.body.imgUrl,
   Course.findByIdAndUpdate(req.body.id,{
     $set: update
   },(err,rtn)=>{
