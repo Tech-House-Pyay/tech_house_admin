@@ -161,10 +161,10 @@ router.get('/update/:id',(req,res)=>{
 router.post('/update',upload.single('photo'),(req,res)=>{
   var update = {
     _id: req.body.id,
-    name: req.body.name,
+    name: req.body.CName,
     teacher_id: req.body.tName,
     fee: req.body.fee,
-    imgUrl: req.body.imgUrl,
+    imgUrl: req.file.filename,
     week: req.body.week,
     days: req.body.days,
     start: req.body.start,
