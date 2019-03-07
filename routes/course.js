@@ -160,6 +160,7 @@ router.get('/update/:id',(req,res)=>{
 });
 router.post('/update',upload.single('photo'),(req,res)=>{
   var update = {
+    _id: req.body.id,
     name: req.body.name,
     teacher_id: req.body.teacher_id,
     fee: req.body.fee,
