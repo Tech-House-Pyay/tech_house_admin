@@ -162,8 +162,9 @@ router.post('/update',upload.single('photo'),(req,res)=>{
   var update = {
     _id: req.body.id,
     name: req.body.name,
-    teacher_id: req.body.teacher_id,
+    teacher_id: req.body.tName,
     fee: req.body.fee,
+    imgUrl: req.body.imgUrl,
     week: req.body.week,
     days: req.body.days,
     start: req.body.start,
@@ -172,7 +173,7 @@ router.post('/update',upload.single('photo'),(req,res)=>{
     status: req.body.status,
     desc: req.body.desc,
   }
-  if(req.file) update.imgUrl= req.body.imgUrl,
+
   Course.findByIdAndUpdate(req.body.id,{
     $set: update
   },(err,rtn)=>{
